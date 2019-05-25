@@ -12,11 +12,11 @@
 
 ### Results:
 
+![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/1.jpg)
+
+![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/1_seg.png)
+
 ![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/2.jpg)
 
 ![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/2_seg.png)
-
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/3.jpg)
-
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/3_seg.png)
 
