@@ -4,9 +4,9 @@
 
 
 ### Graphs:
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/ani.png)
+![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/accuracy.png)
 
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/canvas.png)
+![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_filling_Robot-Pytorch-OpenCV-ONNX-runtime-/master/loss.png)
 
 
 
