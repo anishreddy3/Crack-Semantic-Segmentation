@@ -1,1 +1,11 @@
-Real time Crack Segmentation using OpenCV, ONNX runtime and Pytorch
+﻿Real time Crack Segmentation using PyTorch OpenCV, ONNX runtime
+
+
+Graphs:
+
+
+
+
+Results:
+
+
