@@ -2,9 +2,16 @@
 
 ## Real time Crack Segmentation using PyTorch, OpenCV, ONNX runtime
 
+### Dependencies
+
+<p> Pytorch <br>
+<p> OpenCV <br>
+<p> ONNX runtime <br>
+<p> CUDA >= 9.0 <br>
+
 ### Instructions
 
-<p> 1.Train model with your datatset and save model weights (.pt file) using unet_train.py <br>
+<p> 1.Train model with your datatset and save model weights (.pt file) using unet_train.py on supervisely.ly <br>
 <p> 2.Convert model weights to ONNX format using pytorch_to_onnx.py <br>
 <p> 3.Obtain real time inference using crack_det_new.py <br>
 
