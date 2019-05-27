@@ -95,6 +95,10 @@ ap.add_argument("-c", "--classes", required=True,
 	help="path to .txt file containing class labels")
 ap.add_argument("-l", "--colors", type=str,
 	help="path to .txt file containing colors for labels")
+ap.add_argument("-v", "--video", required=True,
+	help="path to input video file")
+ap.add_argument("-o", "--output", required=True,
+	help="path to output video file")
 args = vars(ap.parse_args())
 
 # load the class label names
@@ -111,17 +115,35 @@ if args["colors"]:
 model_file = ("/home/aniyo/onnx_model_name.onnx")
 
 print("[INFO] sampling THREADED frames from webcam...")
-vsa = WebcamVideoStream(src=2).start()
+#vsa = WebcamVideoStream(src=2).start()
+vs = cv2.VideoCapture(args["video"])
+writer = None
+# try to determine the total number of frames in the video file
+# try to determine the total number of frames in the video file
+try:
+	prop =  cv2.cv.CV_CAP_PROP_FRAME_COUNT if imutils.is_cv2() \
+		else cv2.CAP_PROP_FRAME_COUNT
+	total = int(vs.get(prop))
+	print("[INFO] {} total frames in video".format(total))
+
+# an error occurred while trying to determine the total
+# number of frames in the video file
+except:
+	print("[INFO] could not determine # of frames in video")
+	total = -1
 fps = FPS().start()
 
 
 while True:
 	#load the input image and resize it to fit our model requirements
-	frame = vsa.read()
-	frame = imutils.resize(frame, width=256)
+	(grabbed, frame) = vs.read()
 
-	# load the class label names
-	CLASSES = open(args["classes"]).read().strip().split("\n")
+	if not grabbed:
+		break
+
+	#frame = cv2.resize(frame, (256,256), interpolation = cv2.INTER_LINEAR)
+	frame = imutils.resize(frame, width= 256)
+
 	#constructing a blob from our image
 	blob = cv2.dnn.blobFromImage(cv2.resize(
 	    frame, (256, 256)), 1/255.0, (256, 256), 0, swapRB=True, crop=False)
@@ -130,7 +152,9 @@ while True:
 	with open(model_file, "rb") as f:
 	    model_bytes = f.read()
 	ot = OnnxTransformer(model_bytes)
+	start = time.time()
 	pred = ot.fit_transform(blob)
+	end = time.time()
 
 	# Infer the total number of classes, height and width
 	(numClasses, height, width) = pred.shape[1:4]
@@ -148,8 +172,8 @@ while True:
 	    classMap, (frame.shape[1], frame.shape[0]), interpolation=cv2.INTER_NEAREST)
 
 	# Construct weighted combination of input image along with mask to form output visualization
-	output = ((0.3 * frame) + (0.7 * mask)).astype("uint8")
-	#cv2.rectangle(output,(77,58),(186,132),(128,255,255),-1)
+	output = ((0.4 * frame) + (0.6 * mask)).astype("uint8")
+
 
 	# resizing the output display window
 	cv2.namedWindow('Output',cv2.WINDOW_NORMAL)
@@ -157,6 +181,21 @@ while True:
 
 	# displaying the output
 	cv2.imshow("Output",output)
+	if writer is None:
+		# initialize our video writer
+		fourcc = cv2.VideoWriter_fourcc(*"MJPG")
+		writer = cv2.VideoWriter(args["output"], fourcc, 30,
+			(output.shape[1], output.shape[0]), True)
+
+		# some information on processing single frame
+		if total > 0:
+			elap = (end - start)
+			print("[INFO] single frame took {:.4f} seconds".format(elap))
+			print("[INFO] estimated total time: {:.4f}".format(
+				elap * total))
+
+	# write the output frame to disk
+	writer.write(output)
 
 	# quit the process when q is pressed
 	key = cv2.waitKey(1) & 0xff
@@ -170,5 +209,5 @@ fps.stop()
 print("elapsed time: {:.2f}".format(fps.elapsed()))
 print("approx FPS: {:.2f}".format(fps.fps()))
 
-cv2.destroyAllWindows()
-vsa.stop()
+writer.release()
+vs.release()
