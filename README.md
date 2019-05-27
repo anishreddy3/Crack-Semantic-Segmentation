@@ -11,7 +11,7 @@
 
 ### Results:
 
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_Semantic_Segmentation/master/crack_inference.mp4)
+![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_Semantic_Segmentation/master/crack_inference.gif)
 
 
 ### Graphs:
