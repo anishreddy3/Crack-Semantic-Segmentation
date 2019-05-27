@@ -2,6 +2,12 @@
 
 ## Real time Crack Segmentation using PyTorch, OpenCV, ONNX runtime
 
+### Instructions
+
+1.Train model with your datatset and save model weights (.pt file) using unet_train.py
+2.Convert model weights to ONNX format using pytorch_to_onnx.py
+3.Obtain real time inference using crack_det_new.py
+
 
 ### Results:
 
