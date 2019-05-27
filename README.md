@@ -15,6 +15,8 @@
 <p> 2.Convert model weights to ONNX format using pytorch_to_onnx.py <br>
 <p> 3.Obtain real time inference using crack_det_new.py <br>
 
+<p> Crack segmentation model files can be downloaded by clicking this [link](https://drive.google.com/file/d/10dSDs6riOSb4dWPtEDRCoqyOtO_Uh7k8/view?usp=sharing)
+
 
 ### Results:
 
