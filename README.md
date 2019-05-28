@@ -20,7 +20,7 @@ Crack segmentation model files can be downloaded by clicking this [link](https:/
 
 ### Results:
 
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_Semantic_Segmentation/master/crack_inference.gif)
+![](crack_inference.gif)
 
 
 ### Graphs:
