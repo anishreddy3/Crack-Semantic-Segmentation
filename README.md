@@ -17,6 +17,19 @@
 
 Crack segmentation model files can be downloaded by clicking this [link](https://drive.google.com/file/d/10dSDs6riOSb4dWPtEDRCoqyOtO_Uh7k8/view?usp=sharing)
 
+### Commands
+
+Usage: Used to inference on images available in a folder on GPU
+
+    python crack_inference_folder.py -c "class file" -l "color file"  -idir "dataset directory" -odir "output directory" -m model file
+
+    python crack_inference_folder.py -c unet_classes.txt -l unet_colors.txt -idir "Dataset/sample dataset/" -odir "output_test/" -m model_files/model.pt
+
+Usage: Used to inference on images available in a folder on CPU
+
+    python crack_det_new.py -c "class file" -l "color file"  -i "input video" -o "output video" -m model file
+
+    python crack_det_new.py -c unet_classes.txt -l unet_colors.txt -i "input_vdo.mp4 -odir "output_vdo.mp4" 
 
 ### Results:
 
