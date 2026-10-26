@@ -90,15 +90,19 @@ class WebcamVideoStream:
 		self.stopped = True
 
 
-ap = argparse.ArgumentParser()
+ap = argparse.ArgumentParser(
+	description="Run crack segmentation inference on a video with an ONNX model.",
+)
 ap.add_argument("-c", "--classes", required=True,
 	help="path to .txt file containing class labels")
 ap.add_argument("-l", "--colors", type=str,
 	help="path to .txt file containing colors for labels")
-ap.add_argument("-v", "--video", required=True,
+ap.add_argument("-v", "--video", "-i", required=True,
 	help="path to input video file")
 ap.add_argument("-o", "--output", required=True,
 	help="path to output video file")
+ap.add_argument("-m", "--model", required=True,
+	help="path to ONNX model file")
 args = vars(ap.parse_args())
 
 # load the class label names
@@ -111,8 +115,8 @@ if args["colors"]:
 	COLORS = np.array(COLORS, dtype="uint8")
 
 
-#LOADING CRACK DETECTING MODEL TRAINED ON PYTORCH CONVERTED TO ONNX FORMAT
-model_file = ("/home/aniyo/onnx_model_name.onnx")
+# Crack detection model trained in PyTorch and exported to ONNX
+model_file = args["model"]
 
 print("[INFO] sampling THREADED frames from webcam...")
 #vsa = WebcamVideoStream(src=2).start()
