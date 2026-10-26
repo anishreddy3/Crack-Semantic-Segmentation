@@ -135,19 +135,35 @@ def construct_unet(n_cls):  # no weights inited
 
 
 # Converting Pytorch model to ONNX format for real time inference
-#initilizaing model
-model = construct_unet(2)
-#loading model weights
-state_dict = torch.load("/home/aniyo/Downloads/unetfin (1)/model.pt")
-from collections import OrderedDict
-new_state_dict = OrderedDict()
-for k, v in state_dict.items():
-    name = k[7:]
-    new_state_dict[name] = v
-# load params
-model.load_state_dict(new_state_dict)
+if __name__ == "__main__":
+    import argparse
+    from collections import OrderedDict
 
-# Create the right input shape (e.g. for an image)
-dummy_input = torch.randn(1, 3, 256, 256)
+    parser = argparse.ArgumentParser(
+        description="Export a trained U-Net checkpoint to ONNX.",
+    )
+    parser.add_argument(
+        "--weights",
+        required=True,
+        help="Path to the PyTorch .pt/.pth checkpoint (DataParallel keys are stripped).",
+    )
+    parser.add_argument(
+        "--output",
+        default="onnx_model_name.onnx",
+        help="Destination ONNX path (default: onnx_model_name.onnx)",
+    )
+    parser.add_argument("--classes", type=int, default=2, help="Number of classes")
+    args = parser.parse_args()
 
-torch.onnx.export(model, dummy_input, "onnx_model_name.onnx")
+    model = construct_unet(args.classes)
+    state_dict = torch.load(args.weights, map_location="cpu")
+    new_state_dict = OrderedDict()
+    for k, v in state_dict.items():
+        name = k[7:] if k.startswith("module.") else k
+        new_state_dict[name] = v
+    model.load_state_dict(new_state_dict)
+    model.eval()
+
+    dummy_input = torch.randn(1, 3, 256, 256)
+    torch.onnx.export(model, dummy_input, args.output)
+    print(f"Wrote {args.output}")
