@@ -1,45 +1,58 @@
-﻿# Unet Semantic Segmentation for Cracks
+# Crack Semantic Segmentation
 
-## Real time Crack Segmentation using PyTorch, OpenCV, ONNX runtime
+Real-time crack segmentation with **PyTorch**, **OpenCV**, and **ONNX Runtime**.
 
-### Dependencies:
+Train a U-Net, export to ONNX, then run folder or video inference.
 
-<p> Pytorch <br>
-<p> OpenCV <br>
-<p> ONNX runtime <br>
-<p> CUDA >= 9.0 <br>
+![Crack inference demo](crack_inference.gif)
 
-### Instructions:
+## Dependencies
 
-<p> 1.Train model with your datatset and save model weights (.pt file) using unet_train.py on supervisely.ly <br>
-<p> 2.Convert model weights to ONNX format using pytorch_to_onnx.py <br>
-<p> 3.Obtain real time inference using crack_det_new.py <br>
+- PyTorch
+- OpenCV
+- ONNX Runtime
+- CUDA 9.0+ (optional, for GPU inference)
 
-Crack segmentation model files can be downloaded by clicking this [link](https://drive.google.com/file/d/10dSDs6riOSb4dWPtEDRCoqyOtO_Uh7k8/view?usp=sharing)
+Install Python deps from `requirements.txt`.
 
-### Commands
+## Workflow
 
-Usage: Used to inference on images available in a folder on GPU
+1. Train on your dataset and save weights (`.pt`) with `unet_train.py` (originally used with Supervise.ly).
+2. Convert weights to ONNX with `pytorch_to_onnx.py`.
+3. Run real-time or batch inference with `crack_det_new.py` / `crack_inference_folder.py`.
 
-    python crack_inference_folder.py -c "class file" -l "color file"  -idir "dataset directory" -odir "output directory" -m model file
+Pretrained model files: [Google Drive](https://drive.google.com/file/d/10dSDs6riOSb4dWPtEDRCoqyOtO_Uh7k8/view?usp=sharing)
 
-    python crack_inference_folder.py -c unet_classes.txt -l unet_colors.txt -idir "Dataset/sample dataset/" -odir "output_test/" -m model_files/model.pt
+## Commands
 
-Usage: Used to inference on images available in a folder on CPU
+Folder inference (GPU):
 
-    python crack_det_new.py -c "class file" -l "color file"  -i "input video" -o "output video" -m model file
+```bash
+python crack_inference_folder.py \
+  -c unet_classes.txt \
+  -l unet_colors.txt \
+  -idir "sample_dataset/" \
+  -odir "output_test/" \
+  -m model_files/model.pt
+```
 
-    python crack_det_new.py -c unet_classes.txt -l unet_colors.txt -i "input_vdo.mp4 -odir "output_vdo.mp4" 
+Video inference:
 
-### Results:
+```bash
+python crack_det_new.py \
+  -c unet_classes.txt \
+  -l unet_colors.txt \
+  -i input_video.mp4 \
+  -o output_video.mp4 \
+  -m model_files/model.pt
+```
 
-![](crack_inference.gif)
+## Training curves
 
+![Accuracy](accuracy.png)
 
-### Graphs:
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_Semantic_Segmentation/master/accuracy.png)
+![Loss](loss.png)
 
-![alt text](https://raw.githubusercontent.com/anishreddy3/Crack_Semantic_Segmentation/master/loss.png)
+## License
 
-
-
+MIT — see [LICENSE](LICENSE).
