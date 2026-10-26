@@ -1,6 +1,16 @@
-skl2onnx
-scikit-onnxruntime
-pillow
+# Historical training/inference stack from the original 2019 project.
+# Prefer a modern PyTorch + onnxruntime install for new work; the pinned
+# CUDA 10 / Python 3.6 wheel URL below is retained only for archival reproduction.
+Pillow
 imutils
-https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-torchvision==0.3.0
+numpy
+opencv-python
+onnx
+onnxruntime
+# Optional archival pins (Python 3.6 era):
+# skl2onnx
+# scikit-onnxruntime
+# https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+# torchvision==0.3.0
+torch
+torchvision
